@@ -237,15 +237,15 @@ class Dicom_Pixeler extends Nanodicom {
 			throw new Nanodicom_Exception('There is no rows, no samples per pixel, no pixel data or malformed dicom file', NULL, 301);
 		}
 		
-		$samples_per_pixel = $this->get(0x0028, 0x0002, 1);
-		$bits_allocated    = $this->get(0x0028, 0x0100);
-		$bits_stored       = $this->get(0x0028, 0x0101);
-		$high_bit          = $this->get(0x0028, 0x0102);
-		$dose_scaling      = $this->get(0x3004, 0x000E, 1);
+		$samples_per_pixel = (int) $this->get(0x0028, 0x0002, 1);
+		$bits_allocated    = (int) $this->get(0x0028, 0x0100);
+		$bits_stored       = (int) $this->get(0x0028, 0x0101);
+		$high_bit          = (int) $this->get(0x0028, 0x0102);
+		$dose_scaling      = (float) $this->get(0x3004, 0x000E, 1);
 		$window_width      = ($width == NULL)  ? $this->get(0x0028,0x1051, 0) : $width;
 		$window_center     = ($center == NULL) ? $this->get(0x0028,0x1050, 0) : $center;
-		$rescale_intercept = $this->get(0x0028,0x1052, 0);
-		$rescale_slope     = $this->get(0x0028,0x1053, 1);
+		$rescale_intercept = (float) $this->get(0x0028,0x1052, 0);
+		$rescale_slope     = (float) $this->get(0x0028,0x1053, 1);
 		$number_of_frames  = (int) $this->get(0x0028,0x0008, 1);
 		$pixel_representation       = $this->get(0x0028,0x0103);
 		$photometric_interpretation = trim($this->get(0x0028,0x0004, 'NONE'));
